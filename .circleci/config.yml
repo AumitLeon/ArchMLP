@@ -43,7 +43,7 @@ jobs:
             yarn --cwd client/ test
             yarn --cwd server/ lint
             yarn --cwd server/ test
-  release:
+  deploy:
     docker:
       - image: circleci/node:10.16
     working_directory: ~/repo
