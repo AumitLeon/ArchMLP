@@ -1,6 +1,6 @@
 {
   "name": "arch-mlp",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "private": true,
   "description": "Machine learning platform",
   "engines": {
@@ -52,8 +52,8 @@
         "@semantic-release/git",
         {
           "assets": [
-            "CHANGELOG.md", 
-            "package.json", 
+            "CHANGELOG.md",
+            "package.json",
             "yarn.lock"
           ]
         }
