@@ -59,17 +59,7 @@
           ]
         }
       ],
-      [
-        "@semantic-release/github",
-        {
-          "assets": [
-            {
-              "path": "**",
-              "label": "Source code"
-            }
-          ]
-        }
-      ]
+      "@semantic-release/github"
     ]
   }
 }
