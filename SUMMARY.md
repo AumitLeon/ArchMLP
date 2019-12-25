@@ -4,5 +4,9 @@
 
 ## Development
 
-* [Project Setup](development/project-setup.md)
+* [Project Setup](docs/development/project-setup.md)
+
+## Changelog
+
+* [Changelog](docs/CHANGELOG.md) 
 
