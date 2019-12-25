@@ -1,7 +1,3 @@
----
-description: Get started with developing for ArchMLP
----
-
 # Project Setup
 
 ## Installing Dependencies
