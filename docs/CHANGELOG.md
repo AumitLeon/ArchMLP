@@ -1,3 +1,10 @@
+## [1.1.4](https://github.com/AumitLeon/archMLP/compare/v1.1.3...v1.1.4) (2019-12-25)
+
+
+### Bug Fixes
+
+* **semantic-release:** path to changelog file ([a376da8](https://github.com/AumitLeon/archMLP/commit/a376da8dbf2dc29071ca49924989b6d6634eb85f))
+
 # [1.1.0](https://github.com/AumitLeon/archMLP/compare/v1.0.2...v1.1.0) (2019-12-25)
 
 
