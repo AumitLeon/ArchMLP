@@ -39,7 +39,9 @@ jobs:
       - run:
           name: Run tests
           command:  |
+            yarn --cwd client/ lint
             yarn --cwd client/ test
+            yarn --cwd server/ lint
             yarn --cwd server/ test
   release:
     docker:
@@ -68,7 +70,9 @@ jobs:
       - run:
           name: Run tests
           command:  |
+            yarn --cwd client/ lint
             yarn --cwd client/ test
+            yarn --cwd server/ lint
             yarn --cwd server/ test
 
       - run:
