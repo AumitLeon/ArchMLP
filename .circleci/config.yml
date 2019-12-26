@@ -45,8 +45,8 @@ jobs:
           name: Run tests and generate coverage report
           command:  |
             yarn global add codecov
-            yarn --cwd client/ test && ./node_module/.bin/codecov
-            yarn --cwd server/ test && ./node_module/.bin/codecov
+            yarn --cwd client/ test && ./node_modules/.bin/codecov
+            yarn --cwd server/ test && ./node_modules/.bin/codecov
   deploy:
     docker:
       - image: circleci/node:10.16
@@ -80,9 +80,9 @@ jobs:
           name: Run tests and generate coverage report
           command:  |
             yarn global add codecov
-            yarn --cwd client/ test && ./node_module/.bin/codecov
-            yarn --cwd server/ test && ./node_module/.bin/codecov
-            
+            yarn --cwd client/ test && ./node_modules/.bin/codecov
+            yarn --cwd server/ test && ./node_modules/.bin/codecov
+
       - run:
           name: Run semantic release
           command:  |
