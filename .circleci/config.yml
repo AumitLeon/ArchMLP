@@ -37,12 +37,17 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run:
-          name: Run tests
+          name: Run linter
           command:  |
             yarn --cwd client/ lint
-            yarn --cwd client/ test
             yarn --cwd server/ lint
-            yarn --cwd server/ test
+      - run:
+          name: Run tests and generate coverage report
+          command:  |
+            yarn --cwd client/ add codecov --dev
+            yarn --cwd client/ test && codecov
+            yarn --cwd server/ add codecov --dev
+            yarn --cwd server/ test && codecov
   deploy:
     docker:
       - image: circleci/node:10.16
@@ -68,12 +73,17 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run:
-          name: Run tests
+          name: Run linter
           command:  |
             yarn --cwd client/ lint
-            yarn --cwd client/ test
             yarn --cwd server/ lint
-            yarn --cwd server/ test
+      - run:
+          name: Run tests and generate coverage report
+          command:  |
+            yarn --cwd client/ add codecov --dev
+            yarn --cwd client/ test && codecov
+            yarn --cwd server/ add codecov --dev
+            yarn --cwd server/ test && codecov
 
       - run:
           name: Run semantic release
