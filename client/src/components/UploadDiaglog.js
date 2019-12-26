@@ -21,7 +21,8 @@ function UploadDialog({ open, setOpen, dataName, file }) {
       <DialogTitle id="alert-dialog-title">{'Upload this file?'}</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
-          {`The dataset you upload will be used to preprocess, train, and deploy your machine learning model. Are you sure you want to use the file ${file.name} with the name ${dataName}?`}
+          {`The dataset you upload will be used to preprocess, train, and deploy your machine learning model. 
+          Are you sure you want to use the file ${file.name} with the name ${dataName}?`}
         </DialogContentText>
       </DialogContent>
       <DialogActions>
