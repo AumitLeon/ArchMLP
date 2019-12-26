@@ -1,3 +1,17 @@
+# [1.2.0](https://github.com/AumitLeon/archMLP/compare/v1.1.4...v1.2.0) (2019-12-26)
+
+
+### Bug Fixes
+
+* **components:** use functional style ([9b5e500](https://github.com/AumitLeon/archMLP/commit/9b5e5000fa3bc6c45599ef48035c20444b308656))
+
+
+### Features
+
+* **app:** add application title ([fa3ce9e](https://github.com/AumitLeon/archMLP/commit/fa3ce9e4c10335fc7dbac33f13d5c1bf4e256671))
+* **file-upload:** fields to name dataset and upload button ([28bcc55](https://github.com/AumitLeon/archMLP/commit/28bcc551ab3e201b6f01c3bc52e9883f4298a6e5))
+* **fileupload:** client side validation for css file ([7873aba](https://github.com/AumitLeon/archMLP/commit/7873aba9d74636a3afcd8a25b7e089c24bdeefc7))
+
 ## [1.1.4](https://github.com/AumitLeon/archMLP/compare/v1.1.3...v1.1.4) (2019-12-25)
 
 
