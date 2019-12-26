@@ -57,9 +57,9 @@ function FileUpload() {
   const [dataName, setDataName] = useState('');
   const [file, setFile] = useState({});
 
-  const handleClickOpen = file => {
-    setFile(file);
-    console.log(file);
+  const handleClickOpen = uploadedFile => {
+    setFile(uploadedFile);
+    console.log(uploadedFile);
     setOpen(true);
   };
 
