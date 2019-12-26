@@ -26,7 +26,7 @@ $ git pull
 Next, create a feature branch where you will make your changes.
 
 ```bash
-$ git checkout -b you-feature-branch
+$ git checkout -b your-feature-branch
 ```
 
 While making your changes, be sure to follow the [Angular Commit Message Conventions](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines). It's important to adhere to these guidelines because `semantic-release` will parse your commit messages to figure out how to properly bump the version when generating new releases. The `commitlint` library uses a githook to lint any commit message and will automatically fire an informative and actionable error if your message doesn't meet these conventions. The exact configuration we use is a variation of the Angular Commit Message standard, called [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
