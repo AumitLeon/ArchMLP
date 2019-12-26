@@ -5,7 +5,7 @@
   "description": "Server for ArchMLP",
   "main": "index.js",
   "scripts": {
-    "test": "jest --setupFiles dotenv/config",
+    "test": "jest --setupFiles dotenv/config --coverage",
     "lint": "eslint .",
     "start": "node -r dotenv/config index.js",
     "watch": "nodemon --exec 'node -r dotenv/config' --ignore '*.test.js' index.js"
@@ -14,7 +14,7 @@
   "contributors": [
     "Aumit Leon <aumitleon@gmail.com>"
   ],
-  "license": "Apache-2.0",
+  "license": "BSD-3-Clause",
   "devDependencies": {
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.2.0",

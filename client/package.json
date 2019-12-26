@@ -7,6 +7,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
+    "coverage": "react-scripts test --coverage --ci=true",
     "eject": "react-scripts eject",
     "lint": "eslint ."
   },
@@ -14,7 +15,7 @@
   "contributors": [
     "Aumit Leon <aumitleon@gmail.com>"
   ],
-  "license": "Apache-2.0",
+  "license": "BSD-3-Clause",
   "dependencies": {
     "@material-ui/core": "^4.8.1",
     "@material-ui/icons": "^4.5.1",

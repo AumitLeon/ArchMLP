@@ -2,7 +2,9 @@
 #
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
-version: 2
+version: 2.1
+orbs:
+  codecov: codecov/codecov@1.0.5
 jobs:
   build:
     docker:
@@ -37,12 +39,18 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run:
-          name: Run tests
+          name: Run linter
           command:  |
             yarn --cwd client/ lint
-            yarn --cwd client/ test
             yarn --cwd server/ lint
+      - run:
+          name: Run tests and generate coverage report
+          command:  |
+            yarn --cwd client/ coverage
             yarn --cwd server/ test
+      - codecov/upload:
+          file: client/coverage/*.json
+
   deploy:
     docker:
       - image: circleci/node:10.16
@@ -68,12 +76,18 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run:
-          name: Run tests
+          name: Run linter
           command:  |
             yarn --cwd client/ lint
-            yarn --cwd client/ test
             yarn --cwd server/ lint
+      - run:
+          name: Run tests and generate coverage report
+          command:  |
+            yarn --cwd client/ coverage
             yarn --cwd server/ test
+
+      - codecov/upload:
+          file: client/coverage/*.json
 
       - run:
           name: Run semantic release

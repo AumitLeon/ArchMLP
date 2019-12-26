@@ -20,7 +20,7 @@
   "contributors": [
     "Aumit Leon <aumitleon@gmail.edu>"
   ],
-  "license": "Apache-2.0",
+  "license": "BSD-3-Clause",
   "devDependencies": {
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-conventional": "^8.2.0",
