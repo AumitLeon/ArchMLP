@@ -40,7 +40,7 @@ $ git checkout your-feature-branch
 $ git merge master
 ```
 
-After you think your changes are ready, push up your feature branch to the Github remote.
+After your changes are ready, push up your feature branch to the Github remote.
 
 ```bash
 $ git push -u origin your-feature-branch
