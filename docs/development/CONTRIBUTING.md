@@ -19,6 +19,7 @@ For CI/CD pipelines and automation, this project uses [CircleCI](https://circlec
 Begin by making sure the master branch of your clone is up to date.
 
 ```bash
+$ git checkout master
 $ git pull
 ```
 
