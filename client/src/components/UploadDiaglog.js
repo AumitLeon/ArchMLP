@@ -5,6 +5,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import PropTypes from 'prop-types';
 
 function UploadDialog({ open, setOpen, dataName, file }) {
   const handleClose = () => {
@@ -38,5 +39,12 @@ function UploadDialog({ open, setOpen, dataName, file }) {
     </Dialog>
   );
 }
+
+UploadDialog.propTypes = {
+  open: PropTypes.bool.isRequired,
+  setOpen: PropTypes.func.isRequired,
+  dataName: PropTypes.string.isRequired,
+  file: PropTypes.object.isRequired
+};
 
 export default UploadDialog;
