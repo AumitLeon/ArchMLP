@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import AppBar from '@material-ui/core/AppBar';
@@ -12,6 +12,7 @@ import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
+import UploadDiaglog from './UploadDiaglog';
 
 const useStyles = makeStyles(theme => ({
   input: {
@@ -52,6 +53,16 @@ function Copyright() {
 function FileUpload() {
   const classes = useStyles();
 
+  const [open, setOpen] = useState(false);
+  const [dataName, setDataName] = useState('');
+  const [file, setFile] = useState({});
+
+  const handleClickOpen = uploadedFile => {
+    setFile(uploadedFile);
+    console.log(uploadedFile);
+    setOpen(true);
+  };
+
   return (
     <div>
       <AppBar position="static" color="inherit">
@@ -82,13 +93,16 @@ function FileUpload() {
               autoComplete="dataset"
               helperText="File must be CSV format"
               autoFocus
+              defaultValue={dataName === '' ? null : dataName}
+              onChange={event => setDataName(event.target.value)}
             />
             <input
               accept=".csv"
               className={classes.input}
               id="contained-button-file"
-              multiple
               type="file"
+              //   onChange={(event) => console.log(event.target.files[0])}
+              onChange={event => handleClickOpen(event.target.files[0])}
             />
             <label htmlFor="contained-button-file">
               <Button
@@ -101,6 +115,12 @@ function FileUpload() {
                 Upload
               </Button>
             </label>
+            <UploadDiaglog
+              open={open}
+              setOpen={setOpen}
+              dataName={dataName}
+              file={file}
+            />
             <Grid container>
               <Grid item xs>
                 <Link
