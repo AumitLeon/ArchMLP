@@ -50,10 +50,7 @@ jobs:
             yarn --cwd server/ test
       - codecov/upload:
           file: client/coverage/*.json
-          flags: client
-      - codecov/upload:
-          file: server/coverage/*.json
-          flags: server
+
   deploy:
     docker:
       - image: circleci/node:10.16
@@ -91,11 +88,6 @@ jobs:
 
       - codecov/upload:
           file: client/coverage/*.json
-          flags: client
-          
-      - codecov/upload:
-          file: server/coverage/*.json
-          flags: server
 
       - run:
           name: Run semantic release
