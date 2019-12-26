@@ -12,11 +12,7 @@ import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import UploadDiaglog from './UploadDiaglog';
 
 const useStyles = makeStyles(theme => ({
   input: {
@@ -65,10 +61,6 @@ function FileUpload() {
     setFile(file);
     console.log(file);
     setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
   };
 
   return (
@@ -123,33 +115,12 @@ function FileUpload() {
                 Upload
               </Button>
             </label>
-            <Dialog
+            <UploadDiaglog
               open={open}
-              onClose={handleClose}
-              aria-labelledby="alert-dialog-title"
-              aria-describedby="alert-dialog-description"
-            >
-              <DialogTitle id="alert-dialog-title">
-                {"Use Google's location service?"}
-              </DialogTitle>
-              <DialogContent>
-                <DialogContentText id="alert-dialog-description">
-                  {'The dataset you upload will be used to preprocess, train, and deploy your machine learning model. Are you sure you want to upload the file ' +
-                    file.name +
-                    ' with the name ' +
-                    dataName +
-                    '?'}
-                </DialogContentText>
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={handleClose} color="primary">
-                  Cancel
-                </Button>
-                <Button onClick={handleClose} color="primary" autoFocus>
-                  Upload
-                </Button>
-              </DialogActions>
-            </Dialog>
+              setOpen={setOpen}
+              dataName={dataName}
+              file={file}
+            />
             <Grid container>
               <Grid item xs>
                 <Link
