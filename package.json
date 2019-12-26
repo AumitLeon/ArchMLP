@@ -9,7 +9,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "concurrently \"npm run watch --prefix server\" \"npm start --prefix client\"",
-    "setup:local": "yarn config set ignore-platform true && yarn install && yarn --cwd client/ config set ignore-platform true && yarn --cwd client/ install && yarn --cwd server/ config set ignore-platform true && yarn --cwd server/ install",
+    "setup:local": "yarn install && yarn --cwd client/ install && yarn --cwd server/ install",
     "heroku-postbuild": "npm install --prefix client && npm install --only=dev --no-shrinkwrap --prefix client && npm run build --prefix client && npm install --prefix server"
   },
   "cacheDirectories": [
