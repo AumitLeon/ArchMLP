@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/AumitLeon/archMLP/compare/v1.2.0...v1.3.0) (2019-12-26)
+
+
+### Features
+
+* **dialog-box:** alert user on upload ([020756d](https://github.com/AumitLeon/archMLP/commit/020756d0be0fc097ba6a05ab450e8eb2b245d9d2))
+
 # [1.2.0](https://github.com/AumitLeon/archMLP/compare/v1.1.4...v1.2.0) (2019-12-26)
 
 
