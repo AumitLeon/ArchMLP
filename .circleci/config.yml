@@ -44,9 +44,8 @@ jobs:
       - run:
           name: Run tests and generate coverage report
           command:  |
-            yarn --cwd client/ add codecov --dev
+            yarn global add codecov
             yarn --cwd client/ test && codecov
-            yarn --cwd server/ add codecov --dev
             yarn --cwd server/ test && codecov
   deploy:
     docker:
@@ -80,9 +79,8 @@ jobs:
       - run:
           name: Run tests and generate coverage report
           command:  |
-            yarn --cwd client/ add codecov --dev
+            yarn global add codecov
             yarn --cwd client/ test && codecov
-            yarn --cwd server/ add codecov --dev
             yarn --cwd server/ test && codecov
 
       - run:
