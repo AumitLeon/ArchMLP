@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import AppBar from '@material-ui/core/AppBar';
@@ -12,6 +12,11 @@ import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 const useStyles = makeStyles(theme => ({
   input: {
@@ -52,6 +57,20 @@ function Copyright() {
 function FileUpload() {
   const classes = useStyles();
 
+  const [open, setOpen] = useState(false);
+  const [dataName, setDataName] = useState('');
+  const [file, setFile] = useState({});
+
+  const handleClickOpen = file => {
+    setFile(file);
+    console.log(file);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <div>
       <AppBar position="static" color="inherit">
@@ -82,13 +101,16 @@ function FileUpload() {
               autoComplete="dataset"
               helperText="File must be CSV format"
               autoFocus
+              defaultValue={dataName === '' ? null : dataName}
+              onChange={event => setDataName(event.target.value)}
             />
             <input
               accept=".csv"
               className={classes.input}
               id="contained-button-file"
-              multiple
               type="file"
+              //   onChange={(event) => console.log(event.target.files[0])}
+              onChange={event => handleClickOpen(event.target.files[0])}
             />
             <label htmlFor="contained-button-file">
               <Button
@@ -101,6 +123,33 @@ function FileUpload() {
                 Upload
               </Button>
             </label>
+            <Dialog
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
+            >
+              <DialogTitle id="alert-dialog-title">
+                {"Use Google's location service?"}
+              </DialogTitle>
+              <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                  {'The dataset you upload will be used to preprocess, train, and deploy your machine learning model. Are you sure you want to upload the file ' +
+                    file.name +
+                    ' with the name ' +
+                    dataName +
+                    '?'}
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleClose} color="primary">
+                  Cancel
+                </Button>
+                <Button onClick={handleClose} color="primary" autoFocus>
+                  Upload
+                </Button>
+              </DialogActions>
+            </Dialog>
             <Grid container>
               <Grid item xs>
                 <Link
