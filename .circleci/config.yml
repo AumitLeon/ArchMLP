@@ -29,6 +29,7 @@ jobs:
       - run:
           name: Install dependencies
           command:  |
+            yarn config set ignore-engines true
             yarn setup:local
 
       - save_cache:
@@ -60,6 +61,7 @@ jobs:
       - run:
           name: Install dependencies
           command:  |
+            yarn config set ignore-engines true
             yarn setup:local
 
       - save_cache:
