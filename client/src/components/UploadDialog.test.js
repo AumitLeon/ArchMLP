@@ -11,7 +11,7 @@ const props = {
   file: {}
 };
 
-describe('FileUpload tests', () => {
+describe('UploadDialog tests', () => {
   let wrapper;
   let shallow;
 
