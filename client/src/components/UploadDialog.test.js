@@ -7,7 +7,7 @@ import UploadDialog from './UploadDiaglog';
 const props = {
   open: true,
   setOpen: jest.fn(),
-  dataName: 'Data set name',
+  dataName: 'Dataset name',
   file: {}
 };
 
@@ -19,10 +19,20 @@ describe('FileUpload tests', () => {
     shallow = createShallow();
     wrapper = shallow(<UploadDialog {...props} />);
   });
+
   test('Renders dialog', () => {
     expect(wrapper.find(Dialog)).toHaveLength(1);
   });
+
   test('Renders cancel and upload buttons', () => {
     expect(wrapper.find(Button)).toHaveLength(2);
+  });
+
+  test('Clicking button calls setOpen callback', () => {
+    wrapper
+      .find(Button)
+      .at(0)
+      .simulate('click', { target: { files: ['dummy.value'] } });
+    expect(props.setOpen).toHaveBeenCalled();
   });
 });

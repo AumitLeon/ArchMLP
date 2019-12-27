@@ -13,6 +13,7 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import UploadDiaglog from './UploadDiaglog';
+import PropTypes from 'prop-types';
 
 const useStyles = makeStyles(theme => ({
   input: {
@@ -50,16 +51,13 @@ function Copyright() {
   );
 }
 
-function FileUpload() {
+function FileUpload({ dataName, setDataName, file, setFile }) {
   const classes = useStyles();
 
   const [open, setOpen] = useState(false);
-  const [dataName, setDataName] = useState('');
-  const [file, setFile] = useState({});
 
   const handleClickOpen = uploadedFile => {
     setFile(uploadedFile);
-    console.log(uploadedFile);
     setOpen(true);
   };
 
@@ -93,7 +91,6 @@ function FileUpload() {
               autoComplete="dataset"
               helperText="File must be CSV format"
               autoFocus
-              defaultValue={dataName === '' ? null : dataName}
               onChange={event => setDataName(event.target.value)}
             />
             <input
@@ -101,7 +98,6 @@ function FileUpload() {
               className={classes.input}
               id="contained-button-file"
               type="file"
-              //   onChange={(event) => console.log(event.target.files[0])}
               onChange={event => handleClickOpen(event.target.files[0])}
             />
             <label htmlFor="contained-button-file">
@@ -140,5 +136,12 @@ function FileUpload() {
     </div>
   );
 }
+
+FileUpload.propTypes = {
+  dataName: PropTypes.string.isRequired,
+  setDataName: PropTypes.func.isRequired,
+  file: PropTypes.object.isRequired,
+  setFile: PropTypes.func.isRequired
+};
 
 export default FileUpload;
