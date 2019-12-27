@@ -63,7 +63,7 @@ function FileUpload({ dataName, setDataName, file, setFile }) {
 
   return (
     <div>
-      <AppBar position="static" color="inherit">
+      <AppBar position="static" color="primary">
         <Toolbar>
           <Typography variant="h5" className={classes.title}>
             ArchMLP
