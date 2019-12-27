@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/AumitLeon/archMLP/compare/v1.3.0...v1.4.0) (2019-12-27)
+
+
+### Features
+
+* **theme:** dynamically handle dark and light mode ([22cdf3e](https://github.com/AumitLeon/archMLP/commit/22cdf3e85ae2b7ed1fa21abb51d03a05d088cdf7))
+
 # [1.3.0](https://github.com/AumitLeon/archMLP/compare/v1.2.0...v1.3.0) (2019-12-26)
 
 
