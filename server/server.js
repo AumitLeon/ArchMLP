@@ -6,18 +6,18 @@ const mkdirp = require('mkdirp');
 // multer config
 const UPLOAD_PATH = 'uploads';
 const storage = multer.diskStorage({
-  destination: function(req, file, cb) {
+  destination: (req, file, cb) => {
     const dir = `${UPLOAD_PATH}/`;
     mkdirp(dir, err => cb(err, dir));
   },
-  filename: function(req, file, cb) {
+  filename: (req, file, cb) => {
     // Remove extension, add time stamp, readd extension
-    cb(null, file.originalname.slice(0, -4) + '-' + Date.now() + '.csv');
+    cb(null, `${file.originalname.slice(0, -4)}-${Date.now()}.csv`);
   }
 });
 const upload = multer({
-  storage: storage,
-  fileFilter: function(req, file, cb) {
+  storage,
+  fileFilter: (req, file, cb) => {
     const filetypes = /csv/;
     const mimetype = filetypes.test(file.mimetype);
     const extname = filetypes.test(
@@ -27,11 +27,13 @@ const upload = multer({
     if (mimetype && extname) {
       return cb(null, true);
     }
-    cb(
-      'Error: File upload only supports the following filetypes - ' + filetypes
+    return cb(
+      new Error(
+        `Error: File upload only supports the following filetypes - ${filetypes}`
+      )
     );
   }
-});
+}).single('file');
 
 // Resolve client build directory as absolute path to avoid errors in express
 const buildPath = path.resolve(__dirname, '../client/build');
@@ -45,9 +47,8 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // TODO: Add any middleware here
-
-// POST route for uploading new file
-app.post('/api/v1/uploadData', upload.single('file'), (req, res, next) => {
+// POST route for uploading new file using upload (multer middleware)
+app.post('/api/v1/uploadData', upload, (req, res, next) => {
   try {
     if (req.file.originalname) {
       res.status(200).send({ success: 'File successfully uploaded!' });
