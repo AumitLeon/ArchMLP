@@ -14,7 +14,23 @@ const storage = multer.diskStorage({
     cb(null, file.originalname + '-' + Date.now() + '.csv');
   }
 });
-const upload = multer({ storage: storage });
+const upload = multer({
+  storage: storage,
+  fileFilter: function(req, file, cb) {
+    const filetypes = /csv/;
+    const mimetype = filetypes.test(file.mimetype);
+    const extname = filetypes.test(
+      path.extname(file.originalname).toLowerCase()
+    );
+
+    if (mimetype && extname) {
+      return cb(null, true);
+    }
+    cb(
+      'Error: File upload only supports the following filetypes - ' + filetypes
+    );
+  }
+});
 
 // Resolve client build directory as absolute path to avoid errors in express
 const buildPath = path.resolve(__dirname, '../client/build');
