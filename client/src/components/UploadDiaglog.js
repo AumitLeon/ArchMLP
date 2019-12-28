@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 const upload = file => {
   const formData = new FormData();
   formData.append('file', file);
-  fetch('/api/uploadData', {
+  fetch('/api/v1/uploadData', {
     // Your POST endpoint
     method: 'POST',
     body: formData // This is your file object
