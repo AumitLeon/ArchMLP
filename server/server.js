@@ -11,7 +11,8 @@ const storage = multer.diskStorage({
     mkdirp(dir, err => cb(err, dir));
   },
   filename: function(req, file, cb) {
-    cb(null, file.originalname + '-' + Date.now() + '.csv');
+    // Remove extension, add time stamp, readd extension
+    cb(null, file.originalname.slice(0, -4) + '-' + Date.now() + '.csv');
   }
 });
 const upload = multer({
@@ -46,13 +47,14 @@ if (process.env.NODE_ENV === 'production') {
 // TODO: Add any middleware here
 
 // POST route for uploading new file
-app.post('/api/uploadData', upload.single('file'), (req, res) => {
+app.post('/api/v1/uploadData', upload.single('file'), (req, res, next) => {
   try {
-    console.log(req.file.originalname);
-    res.status(200).send({ success: 'File successfully uploaded!' });
+    if (req.file.originalname) {
+      res.status(200).send({ success: 'File successfully uploaded!' });
+    }
   } catch (err) {
-    console.log(req.body);
-    res.status(400).send({ err });
+    next(err);
+    res.status(400).send({ error: 'Failed to upload file.' });
   }
 });
 
