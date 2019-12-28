@@ -1,5 +1,39 @@
 const express = require('express');
 const path = require('path'); // eslint-disable-line global-require
+const multer = require('multer');
+const mkdirp = require('mkdirp');
+
+// multer config
+const UPLOAD_PATH = 'uploads';
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const dir = `${UPLOAD_PATH}/`;
+    mkdirp(dir, err => cb(err, dir));
+  },
+  filename: (req, file, cb) => {
+    // Remove extension, add time stamp, readd extension
+    cb(null, `${file.originalname.slice(0, -4)}-${Date.now()}.csv`);
+  }
+});
+const upload = multer({
+  storage,
+  fileFilter: (req, file, cb) => {
+    const filetypes = /csv/;
+    const mimetype = filetypes.test(file.mimetype);
+    const extname = filetypes.test(
+      path.extname(file.originalname).toLowerCase()
+    );
+
+    if (mimetype && extname) {
+      return cb(null, true);
+    }
+    return cb(
+      new Error(
+        `Error: File upload only supports the following filetypes - ${filetypes}`
+      )
+    );
+  }
+}).single('file');
 
 // Resolve client build directory as absolute path to avoid errors in express
 const buildPath = path.resolve(__dirname, '../client/build');
@@ -13,8 +47,17 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // TODO: Add any middleware here
-
-// TODO: Add your routes here
+// POST route for uploading new file using upload (multer middleware)
+app.post('/api/v1/uploadData', upload, (req, res, next) => {
+  try {
+    if (req.file.originalname) {
+      res.status(200).send({ success: 'File successfully uploaded!' });
+    }
+  } catch (err) {
+    next(err);
+    res.status(400).send({ error: 'Failed to upload file.' });
+  }
+});
 
 // Express only serves static assets in production
 if (process.env.NODE_ENV === 'production') {
