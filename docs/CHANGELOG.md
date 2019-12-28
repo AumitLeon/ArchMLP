@@ -1,3 +1,11 @@
+# [1.5.0](https://github.com/AumitLeon/archMLP/compare/v1.4.0...v1.5.0) (2019-12-28)
+
+
+### Features
+
+* **doc-upload-api:** endpoint to upload csv data ([f337d74](https://github.com/AumitLeon/archMLP/commit/f337d7495c3dde7ea3576b4fb92ce38a89688e79))
+* **doc-upload-api:** validate csv endpoint serverside ([14cdbf3](https://github.com/AumitLeon/archMLP/commit/14cdbf37c7735fd13cdd963f7e9a8543ca89558b))
+
 # [1.4.0](https://github.com/AumitLeon/archMLP/compare/v1.3.0...v1.4.0) (2019-12-27)
 
 
