@@ -54,6 +54,7 @@ function Copyright() {
 function FileUpload({ dataName, setDataName, file, setFile }) {
   const classes = useStyles();
 
+  // State variables for UploadDialog
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = uploadedFile => {
@@ -111,12 +112,14 @@ function FileUpload({ dataName, setDataName, file, setFile }) {
                 Upload
               </Button>
             </label>
-            <UploadDiaglog
-              open={open}
-              setOpen={setOpen}
-              dataName={dataName}
-              file={file}
-            />
+            {file && (
+              <UploadDiaglog
+                open={open}
+                setOpen={setOpen}
+                dataName={dataName}
+                file={file}
+              />
+            )}
             <Grid container>
               <Grid item xs>
                 <Link

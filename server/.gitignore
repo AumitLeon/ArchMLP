@@ -9,6 +9,9 @@
 # production
 /build
 
+# uploaded data
+/uploads
+
 # sqlite
 movies.db
 
