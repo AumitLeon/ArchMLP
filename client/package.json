@@ -19,12 +19,16 @@
   "dependencies": {
     "@material-ui/core": "^4.8.1",
     "@material-ui/icons": "^4.5.1",
+    "jest-fetch-mock": "^3.0.0",
     "material-ui": "^1.0.0-beta.47",
     "prop-types": "^15.7.2",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-helmet-async": "^1.0.4",
     "react-scripts": "2.1.5"
+  },
+  "resolutions": {
+    "jss": "10.0.0"
   },
   "devDependencies": {
     "enzyme": "^3.10.0",
