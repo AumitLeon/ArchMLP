@@ -28,10 +28,17 @@ describe('UploadDialog tests', () => {
     expect(wrapper.find(Button)).toHaveLength(2);
   });
 
-  test('Clicking button calls setOpen callback', () => {
+  test('Clicking cancel calls setOpen callback', () => {
     wrapper
       .find(Button)
       .at(0)
+      .simulate('click', { target: { files: ['dummy.value'] } });
+    expect(props.setOpen).toHaveBeenCalled();
+  });
+  test('Clicking upload calls setOpen and upload callback', () => {
+    wrapper
+      .find(Button)
+      .at(1)
       .simulate('click', { target: { files: ['dummy.value'] } });
     expect(props.setOpen).toHaveBeenCalled();
   });
