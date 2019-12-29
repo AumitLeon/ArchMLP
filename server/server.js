@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path'); // eslint-disable-line global-require
 const multer = require('multer');
 const mkdirp = require('mkdirp');
+const rateLimit = require('express-rate-limit');
 
 // multer config
 const UPLOAD_PATH = 'uploads';
@@ -35,10 +36,22 @@ const upload = multer({
   }
 }).single('file');
 
+// Rate limiting config
+// Enable if you're behind a reverse proxy (Heroku, Bluemix, AWS ELB, Nginx, etc)
+// see https://expressjs.com/en/guide/behind-proxies.html
+// app.set('trust proxy', 1);
+
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100 // 100 requests per IP within 15 minute window
+});
+
 // Resolve client build directory as absolute path to avoid errors in express
 const buildPath = path.resolve(__dirname, '../client/build');
 
 const app = express();
+// only apply to requests that begin with /api/
+app.use('/api/v1/uploadData', apiLimiter);
 
 // Express only serves static assets in production
 if (process.env.NODE_ENV === 'production') {
