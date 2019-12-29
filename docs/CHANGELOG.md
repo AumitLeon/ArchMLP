@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/AumitLeon/archMLP/compare/v1.5.0...v1.5.1) (2019-12-29)
+
+
+### Bug Fixes
+
+* **material-ui:** breaking changes from mui ([a716152](https://github.com/AumitLeon/archMLP/commit/a71615279a2368d2f890b80492ccdf987044a734))
+
 # [1.5.0](https://github.com/AumitLeon/archMLP/compare/v1.4.0...v1.5.0) (2019-12-28)
 
 
