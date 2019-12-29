@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/AumitLeon/archMLP/compare/v1.5.1...v1.6.0) (2019-12-29)
+
+
+### Features
+
+* **doc-upload-api:** ratelimit IPs to 100 reqs/15mins ([92a5983](https://github.com/AumitLeon/archMLP/commit/92a59833a4ce1cf5fc8aaaedfb0909bfac0dea6f))
+
 ## [1.5.1](https://github.com/AumitLeon/archMLP/compare/v1.5.0...v1.5.1) (2019-12-29)
 
 
