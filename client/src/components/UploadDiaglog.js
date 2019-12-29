@@ -6,26 +6,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import PropTypes from 'prop-types';
-
-// This will upload the file after having read it
-const upload = file => {
-  const formData = new FormData();
-  formData.append('file', file);
-  fetch('/api/v1/uploadData', {
-    // Your POST endpoint
-    method: 'POST',
-    body: formData // This is your file object
-  })
-    .then(
-      response => response.json() // if the response is a JSON object
-    )
-    .then(
-      success => console.log(success) // Handle the success response object
-    )
-    .catch(
-      error => console.log(error) // Handle the error response object
-    );
-};
+import { upload } from '../apiCalls';
 
 function UploadDialog({ open, setOpen, dataName, file }) {
   //console.log(file.name)
