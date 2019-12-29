@@ -27,6 +27,9 @@
     "react-helmet-async": "^1.0.4",
     "react-scripts": "2.1.5"
   },
+  "resolutions": {
+    "jss": "10.0.0"
+  },
   "devDependencies": {
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
