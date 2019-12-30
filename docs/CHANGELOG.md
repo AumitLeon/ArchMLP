@@ -1,3 +1,11 @@
+## [1.6.1](https://github.com/AumitLeon/archMLP/compare/v1.6.0...v1.6.1) (2019-12-30)
+
+
+### Performance Improvements
+
+* **api:** add logging ([28a9301](https://github.com/AumitLeon/archMLP/commit/28a9301ed62801fce37db8e378941041c6938223))
+* **doc-upload-api:** adjust rate limit to 50 files/hr ([ac38af6](https://github.com/AumitLeon/archMLP/commit/ac38af6c36bc617c2a74ffd568fb729a6a1ebc4d))
+
 # [1.6.0](https://github.com/AumitLeon/archMLP/compare/v1.5.1...v1.6.0) (2019-12-29)
 
 
