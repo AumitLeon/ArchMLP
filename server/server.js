@@ -45,7 +45,7 @@ const upload = multer({
 // app.set('trust proxy', 1);
 const apiLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 15 minutes
-  max: 50 // 100 requests per IP within 15 minute window
+  max: 50 // 50 requests per IP within 15 minute window
 });
 
 // logging config
