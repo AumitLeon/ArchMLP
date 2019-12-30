@@ -12,6 +12,9 @@
 # uploaded data
 /uploads
 
+# log data
+/log
+
 # sqlite
 movies.db
 
