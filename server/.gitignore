@@ -13,7 +13,7 @@
 /uploads
 
 # log data
-/log
+/logs
 
 # sqlite
 movies.db
