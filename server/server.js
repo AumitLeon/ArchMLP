@@ -44,8 +44,8 @@ const upload = multer({
 // see https://expressjs.com/en/guide/behind-proxies.html
 // app.set('trust proxy', 1);
 const apiLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100 // 100 requests per IP within 15 minute window
+  windowMs: 60 * 60 * 1000, // 15 minutes
+  max: 50 // 100 requests per IP within 15 minute window
 });
 
 // logging config
