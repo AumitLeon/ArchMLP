@@ -5,6 +5,14 @@ const mkdirp = require('mkdirp');
 const rateLimit = require('express-rate-limit');
 const morgan = require('morgan');
 const rfs = require('rotating-file-stream');
+const log4js = require('log4js');
+
+// Node logger config
+log4js.configure({
+  appenders: { console: { type: 'file', filename: 'logs/console.log' } },
+  categories: { default: { appenders: ['console'], level: 'debug' } }
+});
+const logger = log4js.getLogger('console');
 
 // multer config
 const UPLOAD_PATH = 'uploads';
@@ -27,15 +35,16 @@ const upload = multer({
     const extname = filetypes.test(
       path.extname(file.originalname).toLowerCase()
     );
-
+    logger.info('Attempting to validate file');
+    // Successful validation
     if (mimetype && extname) {
+      logger.info('File validation successful.');
       return cb(null, true);
     }
-    return cb(
-      new Error(
-        `Error: File upload only supports the following filetypes - ${filetypes}`
-      )
-    );
+    // File validation error
+    logger.error('File validation failed.');
+    req.fileValidationError = `File upload only supports the following filetypes - ${filetypes}`;
+    return cb(null, false, req.fileValidationError);
   }
 }).single('file');
 
@@ -52,7 +61,7 @@ const apiLimiter = rateLimit({
 // create a rotating write stream
 const accessLogStream = rfs.createStream('access.log', {
   interval: '1d', // rotate daily
-  path: path.join(__dirname, 'log')
+  path: path.join(__dirname, 'logs')
 });
 
 // Resolve client build directory as absolute path to avoid errors in express
@@ -76,13 +85,14 @@ app.use(morgan('combined', { stream: accessLogStream }));
 
 // POST route for uploading new file using upload (multer middleware)
 app.post('/api/v1/uploadData', upload, (req, res, next) => {
-  try {
-    if (req.file.originalname) {
-      res.status(200).send({ success: 'File successfully uploaded!' });
-    }
-  } catch (err) {
-    next(err);
-    res.status(400).send({ error: 'Failed to upload file.' });
+  logger.info('User requested /api/v1/uploadData');
+  if (req.fileValidationError) {
+    logger.error(req.fileValidationError);
+    res.status(400).send({ error: req.fileValidationError });
+    next(req.fileValidationError);
+  } else {
+    logger.info(`File ${req.file.originalname} uploaded successfuly.`);
+    res.status(200).send({ success: 'File successfully uploaded!' });
   }
 });
 
