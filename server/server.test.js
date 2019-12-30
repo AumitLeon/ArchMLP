@@ -34,7 +34,7 @@ describe('Upload dataset endpoint ', () => {
       .then(response => {
         expect(response.status).toBe(400);
         expect(response.body.success).toBeFalsy();
-        expect(response.body.error).toBe('Failed to upload file.');
+        expect(response.body.error).toBe('File required!');
       });
   });
 
@@ -43,7 +43,7 @@ describe('Upload dataset endpoint ', () => {
       .post('/api/v1/uploadData')
       .attach('file', errorFilePath)
       .then(response => {
-        expect(response.status).toBe(500);
+        expect(response.status).toBe(400);
         expect(response.body.success).toBeFalsy();
       });
   });

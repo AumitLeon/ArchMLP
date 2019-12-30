@@ -86,13 +86,18 @@ app.use(morgan('combined', { stream: accessLogStream }));
 // POST route for uploading new file using upload (multer middleware)
 app.post('/api/v1/uploadData', upload, (req, res, next) => {
   logger.info('User requested /api/v1/uploadData');
-  if (req.fileValidationError) {
-    logger.error(req.fileValidationError);
-    res.status(400).send({ error: req.fileValidationError });
-    next(req.fileValidationError);
-  } else {
-    logger.info(`File ${req.file.originalname} uploaded successfuly.`);
-    res.status(200).send({ success: 'File successfully uploaded!' });
+  try {
+    if (req.fileValidationError) {
+      logger.error(req.fileValidationError);
+      res.status(400).send({ error: req.fileValidationError });
+      next(req.fileValidationError);
+    } else {
+      logger.info(`File ${req.file.originalname} uploaded successfuly.`);
+      res.status(200).send({ success: 'File successfully uploaded!' });
+    }
+  } catch (err) {
+    logger.error('File missing from request.');
+    res.status(400).send({ error: 'File required!' });
   }
 });
 
