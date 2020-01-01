@@ -1,5 +1,5 @@
 # API Specification v1
-Last Edited Time: Dec 30, 2019 5:03 AM
+Last Edited Time: Jan 1, 2020 3:07 AM
 
 The ArchMLP API is responsible for handling *data transfer* between the various components in the system architecture. All API endpoints are tagged with begin with `/api/v1` to indicate that these are `v1` endpoints.
 
