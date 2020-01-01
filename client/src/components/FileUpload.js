@@ -14,6 +14,7 @@ import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import UploadDiaglog from './UploadDiaglog';
 import PropTypes from 'prop-types';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const useStyles = makeStyles(theme => ({
   input: {
@@ -56,10 +57,26 @@ function FileUpload({ dataName, setDataName, file, setFile }) {
 
   // State variables for UploadDialog
   const [open, setOpen] = useState(false);
+  const [nameError, setNameError] = useState('');
 
   const handleClickOpen = uploadedFile => {
     setFile(uploadedFile);
     setOpen(true);
+  };
+
+  // Only accept alphanermic strings with length <= 31
+  // Set text error accordingly
+  const validateInput = name => {
+    if (name.match(/^[a-z0-9]+$/i) && name.length <= 31) {
+      setDataName(name);
+      setNameError('');
+    } else if (name === '') {
+      setNameError('');
+    } else if (name.match(/^[a-z0-9]+$/i) === null) {
+      setNameError('Dataset name can only contain alphanumerics');
+    } else if (name.length > 31) {
+      setNameError('Dataset name can only contain 31 characters');
+    }
   };
 
   return (
@@ -90,9 +107,10 @@ function FileUpload({ dataName, setDataName, file, setFile }) {
               label="Dataset Name"
               name="dataset"
               autoComplete="dataset"
-              helperText="File must be CSV format"
+              helperText={nameError}
               autoFocus
-              onChange={event => setDataName(event.target.value)}
+              error={nameError === '' ? false : true}
+              onChange={event => validateInput(event.target.value)}
             />
             <input
               accept=".csv"
@@ -102,15 +120,18 @@ function FileUpload({ dataName, setDataName, file, setFile }) {
               onChange={event => handleClickOpen(event.target.files[0])}
             />
             <label htmlFor="contained-button-file">
-              <Button
-                fullWidth
-                variant="contained"
-                color="primary"
-                component="span"
-                className={classes.submit}
-              >
-                Upload
-              </Button>
+              <Tooltip title="File must be CSV format" placement="right">
+                <Button
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  component="span"
+                  className={classes.submit}
+                  disabled={nameError === '' ? false : true}
+                >
+                  Upload
+                </Button>
+              </Tooltip>
             </label>
             {file && (
               <UploadDiaglog
