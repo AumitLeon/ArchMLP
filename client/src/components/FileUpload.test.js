@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import IconButton from '@material-ui/core/IconButton';
 import FileUpload from './FileUpload';
 import { createShallow, createMount } from '@material-ui/core/test-utils';
 
@@ -40,6 +41,17 @@ describe('FileUpload tests', () => {
     const helper = mount(<FileUpload {...props} />);
 
     expect(helper.find(TextField).text()).toEqual('Dataset Name *​');
+  });
+
+  test('Clicking github icon opens repo', () => {
+    wrapper
+      .find(IconButton)
+      .at(0)
+      .simulate('click');
+    expect(global.open).toHaveBeenCalledWith(
+      'https://github.com/AumitLeon/archMLP',
+      '_blank'
+    );
   });
 
   test('Updating dataset name calls setDataName callback and sets empty helper text', () => {
