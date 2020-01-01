@@ -5,13 +5,14 @@ The ArchMLP API is responsible for handling *data transfer* between the various 
 
 ## Overview
 
-|  Endpoint 	|   Type (HTTP verb)	| Params|  Description 
+|  Endpoint 	|   HTTP verb	| Params|  Description 
 |---	|---	|---	|---
-|  `api/v1/uploadData` 	|  **POST** 	| `File` object | Upload CSV file to the server.  		
+|  `/api/v1/uploadData` 	|  **POST** 	| `File` object | Upload CSV file to the server.  		
+| `/api/v1/setDataName` | **POST**  | `String` [length <= 31 && contains only alphanumerics] | Send the name of the dataset to the server.
 
 ## Document Upload
 
-### POST: `api/v1/uploadData`
+### POST: `/api/v1/uploadData`
 
 |  Status Code 	|   Type	|  Message 
 |---	|---	|---	
@@ -30,6 +31,8 @@ app.post('/api/v1/uploadData', upload, (req, res, next) => {
       next(req.fileValidationError);
     } else {
       logger.info(`File ${req.file.originalname} uploaded successfuly.`);
+      file = req.file;
+      logger.info(`File object: ${file}`);
       res.status(200).send({ success: 'File successfully uploaded!' });
     }
   } catch (err) {
@@ -37,6 +40,7 @@ app.post('/api/v1/uploadData', upload, (req, res, next) => {
     res.status(400).send({ error: 'File required!' });
   }
 });
+
 ```
 
 The `uploadData` endpoint is responsible for uploading CSV files into the server. It uses the `upload` middleware, which is configured using [multer](https://www.npmjs.com/package/multer). The endpoint attempts to see if an uploaded file was successfully validated by the middleware by checking `req.fileValidationError`. The `fileValidationProperty` property is added to the `req` object through `multer`. If the upload is successful we send a `200` status code,  otherwise a `400` status code.
@@ -80,5 +84,44 @@ const upload = multer({
 ```
 
 The `multer` middleware is configured to accept a single CSV file per request. It checks that the extension of the file and mimetype are both consistent with that of CSV files. If not, the server will return an error. If a file is successfully accepted, it is renamed to `{original-name}-{time-stamp}.csv`, i.e if you upload `data.csv`, the file will be renamed to  `data-1577692525912.csv`, where the timestamp is `1577692525912`. We append the timestamp for logging purposes. Our configuration currently stores all uploaded CSV files in `uploads/`.
+
+### POST: `/api/v1/setDataName`
+
+|  Status Code 	|   Type	|  Message 
+|---	|---	|---	
+|  200 (OK) 	|  **Success** 	| Dataset name has been received! 
+|  400 (Bad Request) 	|  **Error** 	| Dataset name can only contain alphanumeric characters.
+|  400 (Bad Request) 	|  **Error** 	| Dataset name can contain at-most 31 characters.
+|  400 (Bad Request) 	|  **Error** 	| Failed to receive dataset name.
+
+```javascript
+// POST route for setting dataset name
+app.post('/api/v1/setDataName', (req, res) => {
+  logger.info('User requested /api/v1/setDataName');
+  if (req.body.name) {
+    logger.info(`Dataset name ${req.body.name} received.`);
+    if (req.body.name.match(/^[a-z0-9]+$/i) && req.body.name.length <= 31) {
+      dataName = req.body.name;
+      logger.info(`Dataset name ${dataName} validation successful.`);
+      res.status(200).send({ success: 'Dataset name has been received!' });
+    } else if (req.body.name.match(/^[a-z0-9]+$/i) === null) {
+      logger.error(`Dataset name ${dataName} has non-alphanumeric characters.`);
+      res.status(400).send({
+        error: 'Dataset name can only contain alphanumeric characters.'
+      });
+    } else if (req.body.name.length > 31) {
+      logger.error(`Dataset name ${dataName} has length greater than 31.`);
+      res
+        .status(400)
+        .send({ error: 'Dataset name can contain at-most 31 characters.' });
+    }
+  } else {
+    logger.error('Dataset name not received');
+    res.status(400).send({ error: 'Failed to receive dataset name.' });
+  }
+});
+```
+
+The `setDataName` endpoint allows a user to set the name that they would like the dataset to have. The restrictions imposed on this endpoint ensure that 1) a name is received, 2) the name contains only alphanumerics, and 3) the name contains at most 31 characters. Dataset names are validated in the client as well as within the server. The alphanumeric restriction is imposed via matching the string `name` in the the request body to the following regex `/^[a-z0-9]+$/i`, which is broken down [here](https://stackoverflow.com/questions/388996/regex-for-javascript-to-allow-only-alphanumeric). The length restriction is validated by checking the length of the string. All validation rules on the dataset name are meant to make it simple to create SQL tables using the name provided by the user.
 
 See [server/server.js](../../server/server.js) for the full server implementation and [server/server.test.js](../../server/server.test.js) for tests.

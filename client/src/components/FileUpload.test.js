@@ -39,24 +39,58 @@ describe('FileUpload tests', () => {
     const mount = createMount();
     const helper = mount(<FileUpload {...props} />);
 
-    expect(helper.find(TextField).text()).toEqual(
-      'Dataset Name *​File must be CSV format'
-    );
+    expect(helper.find(TextField).text()).toEqual('Dataset Name *​');
   });
 
-  test('Updating dataset name calls setDataName callback', () => {
+  test('Updating dataset name calls setDataName callback and sets empty helper text', () => {
     wrapper
       .find(TextField)
       .at(0)
-      .simulate('change', { target: { value: 'new-name' } });
-
+      .simulate('change', { target: { value: 'newName' } });
     expect(props.setDataName).toHaveBeenCalled();
+    expect(wrapper.find(TextField).props().error).toEqual(false);
+    expect(wrapper.find(TextField).props().helperText).toEqual('');
   });
 
-  test('Updating dataset name calls setDataName callback', () => {
+  test('Updating dataset name calls setFile callback', () => {
     wrapper
       .find('input')
       .simulate('change', { target: { files: ['dummy.value'] } });
     expect(props.setFile).toHaveBeenCalled();
+  });
+
+  test('Proper helper text on name with length > 31', () => {
+    wrapper
+      .find(TextField)
+      .at(0)
+      .simulate('change', {
+        target: { value: 'abcdefghijklmnopqrstuvwxyz123456' }
+      });
+    expect(wrapper.find(TextField).props().helperText).toEqual(
+      'Dataset name can only contain 31 characters'
+    );
+    // Disable button on invalid name input
+    expect(wrapper.find(TextField).props().error).toEqual(true);
+  });
+
+  test('Proper helper text on name with non-alphanumerics', () => {
+    wrapper
+      .find(TextField)
+      .at(0)
+      .simulate('change', { target: { value: 'abcd$' } });
+    expect(wrapper.find(TextField).props().helperText).toEqual(
+      'Dataset name can only contain alphanumerics'
+    );
+    // Disable button on invalid name input
+    expect(wrapper.find(TextField).props().error).toEqual(true);
+  });
+
+  test('Proper helper text on empty input', () => {
+    wrapper
+      .find(TextField)
+      .at(0)
+      .simulate('change', { target: { value: '' } });
+    expect(wrapper.find(TextField).props().helperText).toEqual('');
+    expect(wrapper.find(TextField).props().error).toEqual(false);
   });
 });
