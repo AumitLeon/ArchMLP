@@ -1,3 +1,12 @@
+# [1.7.0](https://github.com/AumitLeon/archMLP/compare/v1.6.1...v1.7.0) (2020-01-01)
+
+
+### Features
+
+* **dataset-name-api:** add endpoint ([f205ed4](https://github.com/AumitLeon/archMLP/commit/f205ed41e35a5724ad28905de6f86141c59d2b7d))
+* **dataset-name-api:** add validation ([c428343](https://github.com/AumitLeon/archMLP/commit/c428343a64f72f89e4db47bc2e003b695c75a48f))
+* **upload-file:** client side name validation ([241b5fe](https://github.com/AumitLeon/archMLP/commit/241b5fe8bb975e7ac982f8c64b8f8a1f9f837aa3))
+
 ## [1.6.1](https://github.com/AumitLeon/archMLP/compare/v1.6.0...v1.6.1) (2019-12-30)
 
 

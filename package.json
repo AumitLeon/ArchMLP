@@ -1,6 +1,6 @@
 {
   "name": "arch-mlp",
-  "version": "1.6.1",
+  "version": "1.7.0",
   "private": true,
   "description": "Machine learning platform",
   "engines": {
