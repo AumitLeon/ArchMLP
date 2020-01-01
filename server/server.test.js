@@ -48,3 +48,58 @@ describe('Upload dataset endpoint ', () => {
       });
   });
 });
+
+describe('Upload dataset name endpoint', () => {
+  const datasetName = { name: 'test' };
+  test('POST /api/v1/setDataName - recieve a new dataset name', () => {
+    return request(app)
+      .post('/api/v1/setDataName')
+      .send(datasetName)
+      .then(response => {
+        expect(response.status).toBe(200);
+        expect(response.body.error).toBeFalsy();
+        expect(response.body.success).toBe('Dataset name has been received!');
+      });
+  });
+
+  test('POST /api/v1/setDataName - 400 response with empty body', () => {
+    return request(app)
+      .post('/api/v1/setDataName')
+      .then(response => {
+        expect(response.status).toBe(400);
+        expect(response.body.success).toBeFalsy();
+        expect(response.body.error).toBe('Failed to receive dataset name.');
+      });
+  });
+
+  test('POST /api/v1/setDataName - 400 response with no name object', () => {
+    return request(app)
+      .post('/api/v1/setDataName')
+      .send({ wrongName: 'test' })
+      .then(response => {
+        expect(response.status).toBe(400);
+        expect(response.body.success).toBeFalsy();
+        expect(response.body.error).toBe('Failed to receive dataset name.');
+      });
+  });
+
+  // test('POST /api/v1/uploadData - Upload fails', () => {
+  //   return request(app)
+  //     .post('/api/v1/uploadData')
+  //     .then(response => {
+  //       expect(response.status).toBe(400);
+  //       expect(response.body.success).toBeFalsy();
+  //       expect(response.body.error).toBe('File required!');
+  //     });
+  // });
+
+  // test('POST /api/v1/uploadData - Upload fails with wrong type of file', () => {
+  //   return request(app)
+  //     .post('/api/v1/uploadData')
+  //     .attach('file', errorFilePath)
+  //     .then(response => {
+  //       expect(response.status).toBe(400);
+  //       expect(response.body.success).toBeFalsy();
+  //     });
+  // });
+});

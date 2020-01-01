@@ -113,16 +113,13 @@ app.post('/api/v1/uploadData', upload, (req, res, next) => {
 // POST route for setting dataset name
 app.post('/api/v1/setDataName', (req, res, next) => {
   logger.info('User requested /api/v1/setDataName');
-  try {
-    if (req.body.name) {
-      dataName = req.body.name;
-      logger.info(`Dataset name ${dataName} received.`);
-      res.status(200).send({ success: 'Dataset name has been received.' });
-    }
-  } catch (err) {
-    logger.error(err);
-    next(err);
-    res.status(400).send({ error: 'Dataset name has not been received.' });
+  if (req.body.name) {
+    dataName = req.body.name;
+    logger.info(`Dataset name ${dataName} received.`);
+    res.status(200).send({ success: 'Dataset name has been received!' });
+  } else {
+    logger.error('Dataset name not received');
+    res.status(400).send({ error: 'Failed to receive dataset name.' });
   }
 });
 

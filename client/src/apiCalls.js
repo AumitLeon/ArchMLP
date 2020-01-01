@@ -20,7 +20,6 @@ export const upload = file => {
 
 // Set dataset name
 export const setName = dataName => {
-  console.log(dataName);
   return fetch('/api/v1/setDataName', {
     // Your POST endpoint
     method: 'POST',
