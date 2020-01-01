@@ -5,7 +5,7 @@ The ArchMLP API is responsible for handling *data transfer* between the various 
 
 ## Overview
 
-|  Endpoint 	|   HTTP verb	| Params|  Description 
+|  Endpoint 	| Type (HTTP verb)	| Params|  Description 
 |---	|---	|---	|---
 |  `/api/v1/uploadData` 	|  **POST** 	| `File` object | Upload CSV file to the server.  		
 | `/api/v1/setDataName` | **POST**  | `String` [length <= 31 && contains only alphanumerics] | Send the name of the dataset to the server.
@@ -19,6 +19,32 @@ The ArchMLP API is responsible for handling *data transfer* between the various 
 |  200 (OK) 	|  **Success** 	| File successfully uploaded!  
 |  400 (Bad Request) 	|  **Error** 	| File upload only supports the following filetypes - /csv/
 |  400 (Bad Request) 	|  **Error** 	| File required!
+
+#### Usage
+```javascript
+export const upload = file => {
+  const formData = new FormData();
+  formData.append('file', file);
+  return fetch('/api/v1/uploadData', {
+    // Your POST endpoint
+    method: 'POST',
+    body: formData // This is your file object
+  })
+    .then(
+      response => response.json() // if the response is a JSON object
+    )
+    .then(
+      success => console.log(success) // Handle the success response object
+    )
+    .catch(
+      error => console.log(error) // Handle the error response object
+    );
+};
+```
+
+The above function takes a file object `file` as a parameter. This endpoint expects a `File` object in the body. If using the [`fetch` API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API), leave out the `Content-Type` header (let the `fetch` API set it for you). In the above code, the `/api/v1/uploadData` is pinged with a `POST` request containing our `File` object in the body. We then chain promises to receive the JSON response and then log the success message or the error message to the console.
+
+#### Implementation Details
 
 ```javascript
 // POST route for uploading new file using upload (multer middleware)
@@ -93,6 +119,31 @@ The `multer` middleware is configured to accept a single CSV file per request. I
 |  400 (Bad Request) 	|  **Error** 	| Dataset name can only contain alphanumeric characters.
 |  400 (Bad Request) 	|  **Error** 	| Dataset name can contain at-most 31 characters.
 |  400 (Bad Request) 	|  **Error** 	| Failed to receive dataset name.
+
+#### Usage
+
+```javascript
+export const setName = dataName => {
+  return fetch('/api/v1/setDataName', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name: dataName })
+  })
+    .then(
+      response => response.json() // The response is a JSON object
+    )
+    .then(
+      success => console.log(success) // Handle the success response object
+    )
+    .catch(
+      error => console.log(error) // Handle the error response object
+    );
+};
+```
+
+The above function takesa string `dataName` as a parameter, which gets passed to the endpoint in the body of a `POST` request as a JSON string via [`JSON.stringify()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify). The endpoint send a JSON response containing a success or an error message.
+
+#### Implementation Details
 
 ```javascript
 // POST route for setting dataset name
