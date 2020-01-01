@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/AumitLeon/archMLP/compare/v1.7.0...v1.8.0) (2020-01-01)
+
+
+### Features
+
+* **appbar:** add github icon ([2732852](https://github.com/AumitLeon/archMLP/commit/27328524e5e8bb8b8ba66c92e29dd4c6442b691f))
+
 # [1.7.0](https://github.com/AumitLeon/archMLP/compare/v1.6.1...v1.7.0) (2020-01-01)
 
 
