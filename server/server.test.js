@@ -72,34 +72,29 @@ describe('Upload dataset name endpoint', () => {
       });
   });
 
-  test('POST /api/v1/setDataName - 400 response with no name object', () => {
+  test('POST /api/v1/setDataName - 400 response with name containing non-alphanumerics', () => {
     return request(app)
       .post('/api/v1/setDataName')
-      .send({ wrongName: 'test' })
+      .send({ name: 'abcd$' })
       .then(response => {
         expect(response.status).toBe(400);
         expect(response.body.success).toBeFalsy();
-        expect(response.body.error).toBe('Failed to receive dataset name.');
+        expect(response.body.error).toBe(
+          'Dataset name can only contain alphanumeric characters.'
+        );
       });
   });
 
-  // test('POST /api/v1/uploadData - Upload fails', () => {
-  //   return request(app)
-  //     .post('/api/v1/uploadData')
-  //     .then(response => {
-  //       expect(response.status).toBe(400);
-  //       expect(response.body.success).toBeFalsy();
-  //       expect(response.body.error).toBe('File required!');
-  //     });
-  // });
-
-  // test('POST /api/v1/uploadData - Upload fails with wrong type of file', () => {
-  //   return request(app)
-  //     .post('/api/v1/uploadData')
-  //     .attach('file', errorFilePath)
-  //     .then(response => {
-  //       expect(response.status).toBe(400);
-  //       expect(response.body.success).toBeFalsy();
-  //     });
-  // });
+  test('POST /api/v1/setDataName - 400 response with name of length > 31 chars', () => {
+    return request(app)
+      .post('/api/v1/setDataName')
+      .send({ name: 'abcdefghijklmnopqrstuvwxyz123456' })
+      .then(response => {
+        expect(response.status).toBe(400);
+        expect(response.body.success).toBeFalsy();
+        expect(response.body.error).toBe(
+          'Dataset name can contain at-most 31 characters.'
+        );
+      });
+  });
 });

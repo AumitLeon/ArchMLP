@@ -114,28 +114,24 @@ app.post('/api/v1/uploadData', upload, (req, res, next) => {
 // POST route for setting dataset name
 app.post('/api/v1/setDataName', (req, res, next) => {
   logger.info('User requested /api/v1/setDataName');
-  try {
-    if (req.body.name) {
-      logger.info(`Dataset name ${req.body.name} received.`);
-      if (req.body.name.match(/^[a-z0-9]+$/i) && req.body.name.length <= 31) {
-        dataName = req.body.name;
-        logger.info(`Dataset name ${dataName} validation successful.`);
-        res.status(200).send({ success: 'Dataset name has been received!' });
-      } else if (req.body.name.match(/^[a-z0-9]+$/i) === null) {
-        logger.error(
-          `Dataset name ${dataName} has non-alphanumeric characters.`
-        );
-        res.status(400).send({
-          error: 'Dataset name can only contain alphanumeric characters'
-        });
-      } else if (req.body.name.length > 31) {
-        logger.error(`Dataset name ${dataName} has length greater than 31.`);
-        res
-          .status(400)
-          .send({ error: 'Dataset name can contain at-most 31 characters.' });
-      }
+  if (req.body.name) {
+    logger.info(`Dataset name ${req.body.name} received.`);
+    if (req.body.name.match(/^[a-z0-9]+$/i) && req.body.name.length <= 31) {
+      dataName = req.body.name;
+      logger.info(`Dataset name ${dataName} validation successful.`);
+      res.status(200).send({ success: 'Dataset name has been received!' });
+    } else if (req.body.name.match(/^[a-z0-9]+$/i) === null) {
+      logger.error(`Dataset name ${dataName} has non-alphanumeric characters.`);
+      res.status(400).send({
+        error: 'Dataset name can only contain alphanumeric characters.'
+      });
+    } else if (req.body.name.length > 31) {
+      logger.error(`Dataset name ${dataName} has length greater than 31.`);
+      res
+        .status(400)
+        .send({ error: 'Dataset name can contain at-most 31 characters.' });
     }
-  } catch (err) {
+  } else {
     logger.error('Dataset name not received');
     res.status(400).send({ error: 'Failed to receive dataset name.' });
     next(err);
