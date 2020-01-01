@@ -15,6 +15,8 @@ import Container from '@material-ui/core/Container';
 import UploadDiaglog from './UploadDiaglog';
 import PropTypes from 'prop-types';
 import Tooltip from '@material-ui/core/Tooltip';
+import IconButton from '@material-ui/core/IconButton';
+import GitHubIcon from '@material-ui/icons/GitHub';
 
 const useStyles = makeStyles(theme => ({
   input: {
@@ -83,9 +85,24 @@ function FileUpload({ dataName, setDataName, file, setFile }) {
     <div>
       <AppBar position="static" color="primary">
         <Toolbar>
-          <Typography variant="h5" className={classes.title}>
-            ArchMLP
-          </Typography>
+          <Grid container justify="space-between" spacing={1}>
+            <Grid item>
+              <Typography variant="h5" className={classes.title}>
+                ArchMLP
+              </Typography>
+            </Grid>
+            <Grid item>
+              <IconButton
+                color="inherit"
+                size="small"
+                onClick={() =>
+                  window.open('https://github.com/AumitLeon/archMLP', '_blank')
+                }
+              >
+                <GitHubIcon />
+              </IconButton>
+            </Grid>
+          </Grid>
         </Toolbar>
       </AppBar>
       <Container component="main" maxWidth="xs">
