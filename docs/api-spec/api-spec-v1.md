@@ -5,7 +5,7 @@ The ArchMLP API is responsible for handling *data transfer* between the various 
 
 ## Overview
 
-|  Endpoint 	| Type (HTTP verb)	| Params|  Description 
+|  Endpoint 	| Type	| Params|  Description 
 |---	|---	|---	|---
 |  `/api/v1/uploadData` 	|  **POST** 	| `File` object | Upload CSV file to the server.  		
 | `/api/v1/setDataName` | **POST**  | `String` [length <= 31 && contains only alphanumerics] | Send the name of the dataset to the server.
