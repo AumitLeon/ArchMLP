@@ -4,6 +4,16 @@
     "jest": true
   },
   "rules": {
-    "import/order": "off"
+    "import/order": "off",
+    "prefer-destructuring": [
+      "error",
+      {
+        "array": true,
+        "object": false
+      },
+      {
+        "enforceForRenamedProperties": false
+      }
+    ]
   }
 }
