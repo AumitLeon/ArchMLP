@@ -6,6 +6,7 @@ const rateLimit = require('express-rate-limit');
 const morgan = require('morgan');
 const rfs = require('rotating-file-stream');
 const log4js = require('log4js');
+const bodyParser = require('body-parser');
 
 // Node logger config
 log4js.configure({
@@ -83,6 +84,13 @@ app.use('/api/v1/uploadData', apiLimiter);
 // setup the logger
 app.use(morgan('combined', { stream: accessLogStream }));
 
+// body parser middleware
+app.use(bodyParser.json());
+
+// State variables
+let dataName; // dataset name
+let file; // uploaded dataset
+
 // POST route for uploading new file using upload (multer middleware)
 app.post('/api/v1/uploadData', upload, (req, res, next) => {
   logger.info('User requested /api/v1/uploadData');
@@ -93,11 +101,28 @@ app.post('/api/v1/uploadData', upload, (req, res, next) => {
       next(req.fileValidationError);
     } else {
       logger.info(`File ${req.file.originalname} uploaded successfuly.`);
+      file = req.file;
       res.status(200).send({ success: 'File successfully uploaded!' });
     }
   } catch (err) {
     logger.error('File missing from request.');
     res.status(400).send({ error: 'File required!' });
+  }
+});
+
+// POST route for setting dataset name
+app.post('/api/v1/setDataName', (req, res, next) => {
+  logger.info('User requested /api/v1/setDataName');
+  try {
+    if (req.body.name) {
+      dataName = req.body.name;
+      logger.info(`Dataset name ${dataName} received.`);
+      res.status(200).send({ success: 'Dataset name has been received.' });
+    }
+  } catch (err) {
+    logger.error(err);
+    next(err);
+    res.status(400).send({ error: 'Dataset name has not been received.' });
   }
 });
 

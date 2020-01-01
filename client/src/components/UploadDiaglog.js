@@ -6,7 +6,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import PropTypes from 'prop-types';
-import { upload } from '../apiCalls';
+import { upload, setName } from '../apiCalls';
 
 function UploadDialog({ open, setOpen, dataName, file }) {
   //console.log(file.name)
@@ -14,8 +14,9 @@ function UploadDialog({ open, setOpen, dataName, file }) {
     setOpen(false);
   };
   const handleUpload = () => {
-    upload(file);
-    setOpen(false);
+    upload(file); // Upload the dataset
+    setName(dataName); // Set the dataset name
+    setOpen(false); // Close the dialog
   };
   return (
     <Dialog
