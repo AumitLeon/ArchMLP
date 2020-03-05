@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:3001",
+  "engines": {
+    "node": "12.16.x"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

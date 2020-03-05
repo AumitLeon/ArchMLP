@@ -4,6 +4,9 @@
   "private": true,
   "description": "Server for ArchMLP",
   "main": "index.js",
+  "engines": {
+    "node": "12.16.x"
+  },
   "scripts": {
     "test": "jest --setupFiles dotenv/config --coverage",
     "lint": "eslint .",

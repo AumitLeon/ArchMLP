@@ -4,7 +4,7 @@
   "private": true,
   "description": "Machine learning platform",
   "engines": {
-    "node": "10.16.x"
+    "node": "12.16.x"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
