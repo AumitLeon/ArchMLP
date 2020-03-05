@@ -63,8 +63,8 @@
         {
           "assets": [
             "docs/client/CHANGELOG.md",
-            "package.json",
-            "yarn.lock"
+            "client/package.json",
+            "client/yarn.lock"
           ]
         }
       ],
