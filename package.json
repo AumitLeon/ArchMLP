@@ -4,7 +4,7 @@
   "private": true,
   "description": "Machine learning platform",
   "engines": {
-    "node": "10.16.x"
+    "node": "12.16.x"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -18,7 +18,7 @@
   ],
   "keywords": [],
   "contributors": [
-    "Aumit Leon <aumitleon@gmail.edu>"
+    "Aumit Leon <aumitleon@gmail.com>"
   ],
   "license": "BSD-3-Clause",
   "devDependencies": {
@@ -45,30 +45,6 @@
     "{client/src,server}/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
       "prettier --single-quote --write",
       "git add"
-    ]
-  },
-  "release": {
-    "plugins": [
-      "@semantic-release/commit-analyzer",
-      "@semantic-release/release-notes-generator",
-      [
-        "@semantic-release/changelog",
-        {
-          "changelogFile": "docs/CHANGELOG.md"
-        }
-      ],
-      "@semantic-release/npm",
-      [
-        "@semantic-release/git",
-        {
-          "assets": [
-            "docs/CHANGELOG.md",
-            "package.json",
-            "yarn.lock"
-          ]
-        }
-      ],
-      "@semantic-release/github"
     ]
   }
 }
