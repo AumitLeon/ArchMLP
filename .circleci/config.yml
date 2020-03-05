@@ -90,9 +90,9 @@ jobs:
           file: client/coverage/*.json
 
       - run:
-          name: Run semantic release
+          name: Run semantic release for client
           command:  |
-            npx semantic-release
+            cd client && npx semantic-release
 
 workflows:
   version: 2
