@@ -65,9 +65,9 @@
         "@semantic-release/git",
         {
           "assets": [
-            "docs/client/CHANGELOG.md",
-            "client/package.json",
-            "client/yarn.lock"
+            "CHANGELOG.md",
+            "package.json",
+            "yarn.lock"
           ]
         }
       ],
