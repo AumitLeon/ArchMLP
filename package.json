@@ -1,6 +1,5 @@
 {
   "name": "arch-mlp",
-  "version": "1.8.0",
   "private": true,
   "description": "Machine learning platform",
   "engines": {
