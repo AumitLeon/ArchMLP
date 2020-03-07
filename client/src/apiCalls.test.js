@@ -1,3 +1,4 @@
+// Test API calls
 import { upload, setName } from './apiCalls';
 
 describe('Test client side API calls', () => {
