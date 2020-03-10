@@ -1,5 +1,6 @@
 {
   "name": "arch-mlp",
+  "version": "1.11.0",
   "private": true,
   "description": "Machine learning platform",
   "engines": {
@@ -44,6 +45,30 @@
     "{client/src,server}/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
       "prettier --single-quote --write",
       "git add"
+    ]
+  },
+  "release": {
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      [
+        "@semantic-release/changelog",
+        {
+          "changelogFile": "docs/CHANGELOG.md"
+        }
+      ],
+      "@semantic-release/npm",
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            "docs/CHANGELOG.md",
+            "package.json",
+            "yarn.lock"
+          ]
+        }
+      ],
+      "@semantic-release/github"
     ]
   }
 }

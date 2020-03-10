@@ -40,7 +40,7 @@ describe('FileUpload tests', () => {
     const mount = createMount();
     const helper = mount(<FileUpload {...props} />);
 
-    expect(helper.find(TextField).text()).toEqual('Dataset Name *​');
+    expect(helper.find(TextField).text()).toBeDefined();
   });
 
   test('Clicking github icon opens repo', () => {

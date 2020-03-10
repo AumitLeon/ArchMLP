@@ -1,6 +1,6 @@
 {
   "name": "arch-mlp-server",
-  "version": "0.1.0",
+  "version": "1.11.0",
   "private": true,
   "description": "Server for ArchMLP",
   "main": "index.js",
@@ -19,16 +19,12 @@
   ],
   "license": "BSD-3-Clause",
   "devDependencies": {
-    "@semantic-release/git": "^9.0.0",
-    "@semantic-release/github": "^7.0.4",
-    "@semantic-release/npm": "^7.0.3",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.2.0",
     "eslint-config-prettier": "^4.3.0",
     "eslint-plugin-import": "^2.18.2",
     "jest": "^24.9.0",
-    "nodemon": "^1.19.3",
-    "semantic-release": "^17.0.4"
+    "nodemon": "^1.19.3"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -43,29 +39,5 @@
     "rimraf": "^3.0.0",
     "rotating-file-stream": "^2.0.1",
     "supertest": "^4.0.2"
-  },
-  "release": {
-    "plugins": [
-      "@semantic-release/commit-analyzer",
-      "@semantic-release/release-notes-generator",
-      [
-        "@semantic-release/changelog",
-        {
-          "changelogFile": "CHANGELOG.md"
-        }
-      ],
-      "@semantic-release/npm",
-      [
-        "@semantic-release/git",
-        {
-          "assets": [
-            "CHANGELOG.md",
-            "package.json",
-            "yarn.lock"
-          ]
-        }
-      ],
-      "@semantic-release/github"
-    ]
   }
 }
