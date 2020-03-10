@@ -1,3 +1,10 @@
+## [1.11.1](https://github.com/AumitLeon/archMLP/compare/v1.11.0...v1.11.1) (2020-03-10)
+
+
+### Bug Fixes
+
+* deploy single package ([5adb100](https://github.com/AumitLeon/archMLP/commit/5adb100402613044ae35f9acac7febc3fd515cde))
+
 # [1.8.0](https://github.com/AumitLeon/archMLP/compare/v1.7.0...v1.8.0) (2020-01-01)
 
 
